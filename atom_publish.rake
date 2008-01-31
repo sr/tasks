@@ -1,5 +1,5 @@
 namespace :atompub do
-  desc 'Publish FILE or STDIN to the Atom collection located at URI. You can specify LOGIN and PASS if the collection is protected.'
+  desc 'Publish FILE or STDIN to the Atom collection located at URI. Specify LOGIN and PASS if needed.'
   task :publish do
     %w(rubygems rake atom/collection atom/yaml maruku rubypants).each { |l| require l }
     yaml = (ENV['FILE'] && File.exists?(ENV['FILE'])) ? File.read(ENV['FILE']) : STDIN.read
