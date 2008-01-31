@@ -1,4 +1,6 @@
-namespace :omni do
+namespace :atompub do
+  desc 'Convert Atom collection located at URI (use LOGIN and PASS if necessary) using TEMPLATE
+and writes generated files to PUB_PATH'
   task :blogify => ['blogify:entries', 'blogify:index']
   namespace :blogify do
     %w(rubygems rake atom/collection atom/http haml).each { |l| require l }
