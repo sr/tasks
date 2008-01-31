@@ -1,4 +1,23 @@
 namespace :git do
+  task :set_origin do
+    ENV['SERVER'] ||= 'bearnaise.net'
+    origin = "git@#{ENV['SERVER']}:#{ENV['NAME'] || File.basename(ENV['PWD'])}"
+    puts "Adding origin #{origin}..." 
+    `git remote add origin #{origin}`
+  end
+
+  task :push do
+    ENV['NAME'] ||= File.basename(ENV['PWD'])
+    `git push origin master:refs/heads/master`
+    unless ENV['LOGIN'] && ENV['NAME']
+      puts 'Not pushing to github'
+      exit
+    end
+    push_url = "git@github.com:#{ENV['LOGIN']}/#{ENV['NAME']}"
+    puts "Pushing to #{push_url}"
+    `git push #{push_url} master`
+  end
+
   namespace :cvs do
     task :init => :gitify do
       raise 'Missing LOGIN' unless ENV['LOGIN']
