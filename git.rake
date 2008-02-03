@@ -11,6 +11,7 @@ namespace :git do
   task :push do
     ENV['NAME'] ||= File.basename(ENV['PWD'])
     `git push origin master:refs/heads/master`
+    `git push`
     unless ENV['LOGIN'] && ENV['NAME']
       puts 'Not pushing to github'
       exit
@@ -30,7 +31,7 @@ It\'ll checkout the CVS repo into `MODULE`.cvs and then convert it to git into `
       FileUtils.cd File.join(ENV['PWD'], cvs_repo)
       git_repo = File.join(ENV['PWD'], cvs_repo.gsub('.cvs', '.git'))
       puts "Converting #{cvs_repo} to #{git_repo}..."
-      `cd #{File.join(ENV['PWD'], ENV['MODULE'])}.cvs && git-cvsimport -v -C #{git_repo} -a`
+      `git-cvsimport -v -C ../#{git_repo} -a`
     end
 
     task :login do
